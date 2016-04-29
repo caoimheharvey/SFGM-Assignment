@@ -18,13 +18,16 @@ root.geometry("835x580")
 root.title("Home Page")
 root.config(background = '#3D3D3D')
 
+
+langbool = False #false is english
+
 #-------------------------importing file for to do list--------------------------#
-todolist = ['','','']
+todolist = []
 
 file = open("file.txt")
 i = 0
 for f in file.readlines():
-    todolist[i] = f
+    todolist.append(f)
     print(f)
     i = i +1
 
@@ -32,10 +35,9 @@ file.close()
 
 #put text into arrays having a spanish array and an english array
 #use a boolean to switch between the two
-english_titles = ['Home','Modules','To Do List','Grades','Calendar','Announcements','Espanol']
+english_titles = ['Home','Modules','To Do List','Grades','Calendar','Announcements','Español']
 spanish_titles = ['Inicio','Classes','Para Hacer','Notas','Calendario','Anuncios','English']
 
-languageToggle = 0 #when false language is English
 
 #----------------------------------- Header ---------------------------------#
 class header:
@@ -50,76 +52,8 @@ class header:
       self.b.config(image=self.photo,width="100",height="70")
       self.b.pack(side=LEFT)
       """
-#--------------------------------Settings Window---------------------------------#
-def checkLang():
-    if languageToggle == 0:
-        languageToggle = 1
-        print ("Switched to spanish")
-    if languageToggle == 1:
-        languageToggle = 0
-        print("Switched to English")
-
-#---------------------------------Tabs--------------------------------------#
-class tabs:
-    def __init__(self, master):
-        #formatting the buttons positioning 
-        self.homeBtn = Button(master, width=10)
-        self.homeBtn.pack(side=LEFT)
-        self.homeBtn.place(rely=0.075)
-
-        self.modBtn = Button(master, width=10, command = self.new_window)
-        self.modBtn.pack(side=LEFT)
-        self.modBtn.place(rely=0.075, x = 64 + 54)
-
-        self.tdList = Button(master, width=10)
-        self.tdList.pack(side=LEFT)
-        self.tdList.place(rely=0.075, x= 144 + 92)
-
-        self.gradesBtn = Button(master, width=10, command = showGrades)
-        self.gradesBtn.pack(side=LEFT)
-        self.gradesBtn.place(rely=0.075, x = 234 + 120)
-
-        self.calBtn = Button(master, width=10, command = showCal)
-        self.calBtn.pack(side=LEFT)
-        self.calBtn.place(rely=0.075, x = 305 + 167)
-
-        self.annBtn = Button(master, width=11)
-        self.annBtn.pack(side=LEFT)
-        self.annBtn.place(rely=0.075, x = 385 + 205)
-
-        self.settingsBtn = Button(master, width=10, command = checkLang)
-        self.settingsBtn.pack(side=LEFT)
-        self.settingsBtn.place(rely=0.075, x = 512 + 205)
-        
-        
-        #checking language formatting
-        if languageToggle == 0:
-            self.homeBtn.config(text = english_titles[0])
-            self.modBtn.config(text = english_titles[1])
-            self.tdList.config(text = english_titles[2])
-            self.gradesBtn.config(text = english_titles[3])
-            self.calBtn.config(text = english_titles[4])
-            self.annBtn.config(text = english_titles[5])
-            self.settingsBtn.config(text = english_titles[6])
-        else:
-            self.homeBtn.config(text = spanish_titles[0])
-            self.modBtn.config(text = spanish_titles[1])
-            self.tdList.config(text = spanish_titles[2])
-            self.gradesBtn.config(text = spanish_titles[3])
-            self.calBtn.config(text = spanish_titles[4])
-            self.annBtn.config(text = spanish_titles[5])
-            self.settingsBtn.config(text = spanish_titles[6])
-
-    #add functionality to open new window for each
-    #modules window
-    def new_window(self):
-        print("Clicked")
-        toplevel=Toplevel()
-        toplevel.title('New Window')
-        toplevel.focus_set()
-        toplevel.geometry("700x500")
-        text = Label(toplevel, text="You have sucessfully opened a new window")
-        text.pack()
+#header
+head=header(root)
 
 #----------------------------------Calendar-------------------------------------#
 class Calendar:
@@ -164,11 +98,7 @@ class modules:
         title.config(anchor = "sw", height = 2, width = 70, font=("Helvetica", 16))
         title.pack()
         title.place(x = 15, y = 100)
-
-        if languageToggle == 0:
-            title.config(text = english_titles[1])
-        else:
-            title.config(text = spanish_titles[1])
+        title.config(text = english_titles[1])
 
         #Module Background Container
         container = Label(master, bg = '#CFCECF')
@@ -245,11 +175,7 @@ class toDoList:
         title.config(anchor = "sw", height = 2, width = 28, font=("Helvetica", 16))
         title.pack()
         title.place(x = 595, y = 100)
-
-        if languageToggle == 0:
-            title.config(text = english_titles[2])
-        else:
-            title.config(text = spanish_titles[2])
+        title.config(text = english_titles[2])
         
         #container
         container = Label(master, bg = '#CFCECF')
@@ -296,12 +222,7 @@ class grades:
         title.config(anchor = "sw", height = 2, width = 28, font=("Helvetica", 16))
         title.pack()
         title.place(x = 595, y = 330)
-
-        if languageToggle == 0:
-            title.config(text = english_titles[3])
-        else:
-            title.config(text = spanish_titles[3])
-
+        title.config(text = english_titles[3])
         
 
 def showGrades():
@@ -361,6 +282,48 @@ def showGrades():
     sfgm.pack()
     sfgm.place(x = 10, y = 230)
 
+    no = Label(toplevel, text = "Currently no grades to display")
+    no.pack()
+    no.place(x = 300, y = 150)
+
+#---------------------------------Tabs--------------------------------------#
+
+          #add functionality to open new window for each
+    #modules window
+def new_window():
+    print("Clicked")
+    toplevel=Toplevel()
+    toplevel.title('New Window')
+    toplevel.focus_set()
+    toplevel.geometry("700x500")
+    text = Label(toplevel, text="You have sucessfully opened a new window")
+    text.pack()
+
+#formatting the buttons positioning 
+homeBtn = Button(root,text = english_titles[0], width=10)
+homeBtn.pack(side=LEFT)
+homeBtn.place(rely=0.075)
+
+modBtn = Button(root,text = english_titles[1], width=10, command = new_window)
+modBtn.pack(side=LEFT)
+modBtn.place(rely=0.075, x = 64 + 54)
+
+tdList = Button(root,text = english_titles[2], width=10)
+tdList.pack(side=LEFT)
+tdList.place(rely=0.075, x= 144 + 92)
+
+gradesBtn = Button(root,text = english_titles[3], width=10, command = showGrades)
+gradesBtn.pack(side=LEFT)
+gradesBtn.place(rely=0.075, x = 234 + 120)
+
+calBtn = Button(root, width=10,text = english_titles[4], command = showCal)
+calBtn.pack(side=LEFT)
+calBtn.place(rely=0.075, x = 305 + 167)
+
+annBtn = Button(root,text = english_titles[5], width=11)
+annBtn.pack(side=LEFT)
+annBtn.place(rely=0.075, x = 385 + 205)
+
 
 
 #---------------------------------------Announcements-------------------------------------#
@@ -371,11 +334,7 @@ class Announcements:
         title.config(anchor = "sw", height = 2, width = 70, font=("Helvetica", 16))
         title.pack()
         title.place(x = 15, y = 387)
-
-        if languageToggle == 0:
-            title.config(text = english_titles[5])
-        else:
-            title.config(text = spanish_titles[5])
+        title.config(text = english_titles[5])
 
         #Module Background Container
         container = Label(master, bg = '#CFCECF')
@@ -403,13 +362,10 @@ class Announcements:
         a1.config(font=("Helvetica", 14))
         a1.pack(anchor = W)
         a1.place(x = 20, y = 500)
+        
 
 #--------------------------------Calling classes from Main---------------------------------#
-#header
-head=header(root)
 
-#tabs
-tab = tabs(root)
 
 #modules
 mod = modules(root)
@@ -425,5 +381,38 @@ ann = Announcements(root)
 
 #calendar
 cal = Calendar(root)
+
+#--------------------------------Language Switching---------------------------------#
+"""has to be done outside of a class as it applies to the whole program"""
+
+#checking language formatting
+def changeLang():
+    global langbool
+    if langbool == False:
+        homeBtn.config(text = english_titles[0])
+        modBtn.config(text = english_titles[1])
+        tdList.config(text = english_titles[2])
+        gradesBtn.config(text = english_titles[3])
+        calBtn.config(text = english_titles[4])
+        annBtn.config(text = english_titles[5])
+        settingsBtn.config(text = english_titles[6])
+        print("ENG")
+        langbool = True
+    else:
+        homeBtn.config(text = spanish_titles[0])
+        modBtn.config(text = spanish_titles[1])
+        tdList.config(text = spanish_titles[2])
+        gradesBtn.config(text = spanish_titles[3])
+        calBtn.config(text = spanish_titles[4])
+        annBtn.config(text = spanish_titles[5])
+        print("SPN")
+        langbool = False
+
+settingsBtn = Button(root,text = english_titles[6], width=10, command = changeLang)
+
+settingsBtn.pack(side=LEFT)
+settingsBtn.place(rely=0.075, x = 512 + 205)
+
+
 
 root.mainloop()
