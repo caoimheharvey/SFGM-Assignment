@@ -18,7 +18,17 @@ root.geometry("835x580")
 root.title("Home Page")
 root.config(background = '#3D3D3D')
 
+#-------------------------importing file for to do list--------------------------#
+todolist = ['','','']
 
+file = open("file.txt")
+i = 0
+for f in file.readlines():
+    todolist[i] = f
+    print(f)
+    i = i +1
+
+file.close()
 
 #put text into arrays having a spanish array and an english array
 #use a boolean to switch between the two
@@ -69,7 +79,7 @@ class tabs:
         self.gradesBtn.pack(side=LEFT)
         self.gradesBtn.place(rely=0.075, x = 234 + 120)
 
-        self.calBtn = Button(master, width=10)
+        self.calBtn = Button(master, width=10, command = showCal)
         self.calBtn.pack(side=LEFT)
         self.calBtn.place(rely=0.075, x = 305 + 167)
 
@@ -132,8 +142,19 @@ class Calendar:
         cal_out.pack(padx = 3, pady = 10)
         cal_out.place(x = 635, y = 440)
 
-        
-        
+    #calendar tab from main menu
+    def calTab():
+        print("calclicked")
+        toplevel=Toplevel()
+        toplevel.title('Calendar')
+        toplevel.focus_set()
+        toplevel.geometry("700x500")
+        yrcal = calendar.calendar(2016, 2,1,10)
+        yrCalOut = Label(toplevel, text = yrcal, font=('courier', 12, 'bold'), bg='#ffffff')
+        yrCalOut.pack()
+
+yrCal = 'calTab'
+showCal = getattr(Calendar, yrCal)
 
 #----------------------------------------Modules--------------------------------#
 class modules:
@@ -237,18 +258,31 @@ class toDoList:
         container.place(x = 595, y = 144)
         
         #content
-        """
-        task1 = Label(master, text="- Algorithms Assignment - Due May 6th", justify=LEFT,
-                      font=("Helvetica", 12))
-        task1.pack()
-        task1.place(x = 600, y = 150, width = 200, height = 20)
+        lb = Listbox(master)
+        lb.insert(1, todolist[0])
+        lb.insert(2, todolist[1])
+        lb.pack()
+        lb.place(x = 620, y = 155, height = 90)
 
-        task2  = Label(master, text="- Software for a Global... - Due May 3rd", justify=LEFT,
-                       font=("Helvetica", 12))
-        task2.pack()
-        task2.place(x = 600, y = 170, width = 200, height = 40)
-        """
- #       listbox = Listbox(new)
+        e1 = Entry(master)
+        e1.pack()
+        e1.place(x = 615, y = 250)
+
+        add = Button(master, text = "Add", command = lambda: self.add_task(e1.get(), lb))
+        add.pack()
+        add.place(x = 615, y = 280)
+
+
+    def add_task(self, text, lb):
+        lb.insert(0, text)
+        #create array for to-do-list items
+        todolist.append(text)
+        #adding task to text file
+        fileadd = open("file.txt", "a")
+        fileadd.write(text + '\n')
+        fileadd.close()
+
+        
 
 #------------------------------------Grades--------------------------------------#
 class grades:
@@ -275,57 +309,58 @@ def showGrades():
     toplevel=Toplevel()
     toplevel.title('Grades')
     toplevel.focus_set()
-    toplevel.geometry("500x700")
+    toplevel.geometry("500x300")
 
     algos = Label(toplevel, text = "Algorithms")
     algos.config(anchor = W, font = ('Helvetica', 16, 'bold'))
     algos.pack()
-    algos.place(x = 3, y = 40)
+    algos.place(x = 10, y = 50)
     
     hci = Label(toplevel, text = "Human Computer Interaction")
     hci.config(anchor = W, font = ('Helvetica', 16, 'bold'))
     hci.pack()
-    hci.place(x = 3, y = 70)
+    hci.place(x = 10, y = 70)
 
     dc = Label(toplevel, text = "Data Communications")
     dc.config(anchor = W, font = ('Helvetica', 16, 'bold'))
     dc.pack()
-    dc.place(x = 3, y = 90)
+    dc.place(x = 10, y = 90)
 
     db = Label(toplevel, text = "Databases")
     db.config(anchor = W, font = ('Helvetica', 16, 'bold'))
     db.pack()
-    db.place(x = 3, y = 110)
+    db.place(x = 10, y = 110)
 
     germ = Label(toplevel, text = "German")
     germ.config(anchor = W, font = ('Helvetica', 16, 'bold'))
     germ.pack()
-    germ.place(x = 3, y = 130)
+    germ.place(x = 10, y = 130)
 
     maths = Label(toplevel, text = "Mathematics")
     maths.config(anchor = W, font = ('Helvetica', 16, 'bold'))
     maths.pack()
-    maths.place(x = 3, y = 150)
+    maths.place(x = 10, y = 150)
 
     oop = Label(toplevel, text = "Object Oriented Programming")
     oop.config(anchor = W, font = ('Helvetica', 16, 'bold'))
     oop.pack()
-    oop.place(x = 3, y = 190)
+    oop.place(x = 10, y = 170)
 
     os = Label(toplevel, text = "Operating Systems")
     os.config(anchor = W, font = ('Helvetica', 16, 'bold'))
     os.pack()
-    os.place(x = 3, y = 210)
+    os.place(x = 10, y = 190)
 
     se = Label(toplevel, text = "Software Engineering")
     se.config(anchor = W, font = ('Helvetica', 16, 'bold'))
     se.pack()
-    se.place(x = 3, y = 230)
+    se.place(x = 10, y = 210)
 
     sfgm = Label(toplevel, text = "Software for a Global Market")
     sfgm.config(anchor = W, font = ('Helvetica', 16, 'bold'))
     sfgm.pack()
-    sfgm.place(x = 3, y = 250)
+    sfgm.place(x = 10, y = 230)
+
 
 
 #---------------------------------------Announcements-------------------------------------#
