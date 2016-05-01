@@ -56,13 +56,15 @@ class header:
 head=header(root)
 
 #----------------------------------Calendar-------------------------------------#
+#title
+global caltitle
+caltitle = Label(root, text = english_titles[4],bg = '#97233B', fg = '#ffffff')
+caltitle.config(anchor = "sw", height = 2, width = 28, font=("Helvetica", 16))
+caltitle.pack()
+caltitle.place(x = 595, y = 387)
+
 class Calendar:
     def __init__(self,master):
-        #title
-        title = Label(master, bg = '#97233B', text = "Calendar", fg = '#ffffff')
-        title.config(anchor = "sw", height = 2, width = 28, font=("Helvetica", 16))
-        title.pack()
-        title.place(x = 595, y = 387)
 
         #container
         container = Label(master, bg = '#CFCECF')
@@ -91,15 +93,15 @@ yrCal = 'calTab'
 showCal = getattr(Calendar, yrCal)
 
 #----------------------------------------Modules--------------------------------#
+#Module Title
+modtitle = Label(root, text  = english_titles[1],bg = '#97233B', fg = '#ffffff')
+modtitle.config(anchor = "sw", height = 2, width = 70, font=("Helvetica", 16))
+modtitle.pack()
+modtitle.place(x = 15, y = 100)
+
 class modules:
     def __init__(self, master):
-        #Module Title
-        title = Label(master, bg = '#97233B', fg = '#ffffff')
-        title.config(anchor = "sw", height = 2, width = 70, font=("Helvetica", 16))
-        title.pack()
-        title.place(x = 15, y = 100)
-        title.config(text = english_titles[1])
-
+        
         #Module Background Container
         container = Label(master, bg = '#CFCECF')
         container.config(height = 14, width = 62)
@@ -168,14 +170,14 @@ class modules:
         text.pack()
         
 #-----------------------------------To Do List----------------------------------#
+#to do list title bar
+tdtitle = Label(root, bg = '#97233B', fg = '#ffffff',text = english_titles[2])
+tdtitle.config(anchor = "sw", height = 2, width = 28, font=("Helvetica", 16))
+tdtitle.pack()
+tdtitle.place(x = 595, y = 100)
+
 class toDoList:
     def __init__(self, master):
-        #to do list title bar
-        title = Label(master, bg = '#97233B', fg = '#ffffff')
-        title.config(anchor = "sw", height = 2, width = 28, font=("Helvetica", 16))
-        title.pack()
-        title.place(x = 595, y = 100)
-        title.config(text = english_titles[2])
         
         #container
         container = Label(master, bg = '#CFCECF')
@@ -211,18 +213,16 @@ class toDoList:
         
 
 #------------------------------------Grades--------------------------------------#
+gradestitle = Label(root, text = english_titles[3], bg = '#97233B', fg = '#ffffff')
+gradestitle.config(anchor = "sw", height = 2, width = 28, font=("Helvetica", 16))
+gradestitle.pack()
+gradestitle.place(x = 595, y = 330)
+
 class grades:
     def __init__(self, master):
-
         self.displayGrades = Button(master, height = 2, width = 28, command = showGrades)
         self.displayGrades.pack()
         self.displayGrades.place(x = 595, y = 330)
-        
-        title = Label(master, bg = '#97233B', fg = '#ffffff')
-        title.config(anchor = "sw", height = 2, width = 28, font=("Helvetica", 16))
-        title.pack()
-        title.place(x = 595, y = 330)
-        title.config(text = english_titles[3])
         
 
 def showGrades():
@@ -327,15 +327,14 @@ annBtn.place(rely=0.075, x = 385 + 205)
 
 
 #---------------------------------------Announcements-------------------------------------#
+#Module Title
+anntitle = Label(root, text = english_titles[5], bg = '#97233B', fg = '#ffffff')
+anntitle.config(anchor = "sw", height = 2, width = 70, font=("Helvetica", 16))
+anntitle.pack()
+anntitle.place(x = 15, y = 387)
+
 class Announcements:
     def __init__(self,master):
-        #Module Title
-        title = Label(master, bg = '#97233B', fg = '#ffffff')
-        title.config(anchor = "sw", height = 2, width = 70, font=("Helvetica", 16))
-        title.pack()
-        title.place(x = 15, y = 387)
-        title.config(text = english_titles[5])
-
         #Module Background Container
         container = Label(master, bg = '#CFCECF')
         container.config(height = 8, width = 62)
@@ -374,7 +373,7 @@ mod = modules(root)
 tdl = toDoList(root)
 
 #grades
-marks = grades(root)
+#marks = grades(root)
 
 #announcements
 ann = Announcements(root)
@@ -396,6 +395,11 @@ def changeLang():
         calBtn.config(text = english_titles[4])
         annBtn.config(text = english_titles[5])
         settingsBtn.config(text = english_titles[6])
+        anntitle.config(text = english_titles[5])
+        caltitle.config(text = english_titles[4])
+        gradestitle.config(text = english_titles[3])
+        tdtitle.config(text = english_titles[2])
+        modtitle.config(text = english_titles[1])
         print("ENG")
         langbool = True
     else:
@@ -405,6 +409,12 @@ def changeLang():
         gradesBtn.config(text = spanish_titles[3])
         calBtn.config(text = spanish_titles[4])
         annBtn.config(text = spanish_titles[5])
+        settingsBtn.config(text = spanish_titles[6])
+        anntitle.config(text = spanish_titles[5])
+        caltitle.config(text = spanish_titles[4])
+        gradestitle.config(text = spanish_titles[3])
+        tdtitle.config(text = spanish_titles[2])
+        modtitle.config(text = spanish_titles[1])
         print("SPN")
         langbool = False
 

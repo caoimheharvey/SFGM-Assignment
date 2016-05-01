@@ -1,4 +1,2 @@
-SFGM Assignment Demo
-Algos assignment
-
-lovely
+obj1
+obj2
